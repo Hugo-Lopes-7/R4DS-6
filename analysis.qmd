@@ -14,6 +14,7 @@ library(dbplyr)
 ```
 
 ```{r}
+#| message: false
 con <- dbConnect(duckdb(), dbdir = "data/atus.duckdb", read_only = TRUE)
 
 dbplyr_act <- tbl(con, "activities")
@@ -60,7 +61,6 @@ hourly_avg <- dbplyr_act |>
   group_by(sex, hour, major_name) |>
   summarize(avg_min = mean(duration_min, na.rm = TRUE), .groups = "drop") |>
   collect()
-hourly_avg
 ```
 
 ```{r}
